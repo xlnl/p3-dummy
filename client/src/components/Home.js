@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
-// import { Image } from 'cloudinary-react';
+// hook from redux to get actions
+import { useDispatch } from 'react-redux';
+
+import { findAll } from '../actions/posts'
+import Posts from './Posts/Posts'
 
 // renders all the posts on a timeline
 const Home = () => {
-  // const [imageIds, setImageIds] = useState();
-  // const loadImages = async () => {
-  //     try {
-  //         const res = await fetch('/api/images');
-  //         const data = await res.json();
-  //         setImageIds(data);
-  //     } catch (err) {
-  //         console.error(err);
-  //     }
-  // };
-  // useEffect(() => {
-  //     loadImages();
-  // }, []);
+  const [currentId, setCurrentId] = useState(0);
+  const dispatch = useDispatch();
+
+  // successful dispatch
+  useEffect(() => {
+    dispatch(findAll());
+  }, [currentId, dispatch]);
+
   return (
       <div>
           <h1 className="title">Welcome to Petflix</h1>
-          <div className="gallery"></div>
+          <div className="gallery">
+            <Posts setCurrentId={setCurrentId} />
+          </div>
       </div>
   );
-  
 };
 
 export default Home;

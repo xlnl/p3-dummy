@@ -3,16 +3,18 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator"
+import FileBase from 'react-file-base64';
+
 
 // component
-import FormGroup from "./common/FormGroup";
-import ButtonSpinner from "./common/ButtonSpinner"
+import FormGroup from "../common/FormGroup";
+import ButtonSpinner from "../common/ButtonSpinner"
 
 // helper
 // refactor to log in after signing up
 // refactor to handle loading after signing up
-import { register } from '../services/auth.service'
-import { resMessage } from '../utilities/functions.utilities'
+import { signup } from '../../services/auth.service'
+import { resMessage } from '../../utilities/functions.utilities'
 
 // Function given to react-validator
 const required = (value) => {
@@ -63,9 +65,13 @@ const SignUp = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -87,6 +93,25 @@ const SignUp = (props) => {
     setPassword(password);
   };
 
+  // Stores the first name in our first name state
+  const onChangeFirstName = (e) => {
+    const firstName = e.target.value;
+    setFirstName(firstName);
+  };
+
+  // Stores the last name in our last name state
+  const onChangeLastName = (e) => {
+    const lastName = e.target.value;
+    setLastName(lastName);
+  };
+
+  // Stores the city in our city state
+  const onChangeCity = (e) => {
+    const city = e.target.value;
+    setCity(city);
+  };
+
+
   const handleSignUp = (e) => {
     e.preventDefault();
     //Prevent message clear them out
@@ -98,8 +123,7 @@ const SignUp = (props) => {
 
     // Validator stores errors and we can check if error exist
     if(checkBtn.current.context._errors.length === 0){
-        register(username, email, password).then(
-            (response) => {
+      signup(username, email, password).then(            (response) => {
                 setMessage(response.data.message)
                 setSuccessful(true)
                 setTimeout(() => {
@@ -124,6 +148,28 @@ const SignUp = (props) => {
         />
 
         <Form onSubmit={handleSignUp} ref={form}>
+          
+          <FormGroup text="First Name">
+            <Input
+              type="text"
+              className="form-control"
+              name="firstName"
+              value={firstName}
+              onChange={onChangeFirstName}
+              validations={[required]}
+            />
+          </FormGroup>
+
+          <FormGroup text="Last Name">
+            <Input
+              type="text"
+              className="form-control"
+              name="lastName"
+              value={lastName}
+              onChange={onChangeLastName}
+              validations={[required]}
+            />
+          </FormGroup>
 
           <FormGroup text="username">
             <Input
@@ -140,8 +186,7 @@ const SignUp = (props) => {
             <Input
               type="text"
               className="form-control"
-              name="username"
-              value={email}
+              name="email"              value={email}
               onChange={onChangeEmail}
               validations={[required, validEmail]}
             />
@@ -157,6 +202,24 @@ const SignUp = (props) => {
               validations={[required, vpassword]}
             />
           </FormGroup>
+
+          <FormGroup text="city">
+            <Input
+              type="text"
+              className="form-control"
+              name="city"
+              value={city}
+              onChange={onChangeCity}
+            />
+          </FormGroup>
+
+          <div>
+            <FileBase 
+              type="file" 
+              multiple={false} 
+              onDone={({ base64 }) => setProfilePic({ ...profilePic, profilePic: base64 })} />
+          </div>
+
 
           <ButtonSpinner text="Sign Up"/>
 

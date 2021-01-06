@@ -4,12 +4,12 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 //Components
-import FormGroup from './common/FormGroup'
-import ButtonSpinner from './common/ButtonSpinner'
+import FormGroup from '../common/FormGroup'
+import ButtonSpinner from '../common/ButtonSpinner'
 
 //Helper
-import { login } from '../services/auth.service'
-import { resMessage } from '../utilities/functions.utilities'
+import { login } from '../../services/auth.service'
+import { resMessage } from '../../utilities/functions.utilities'
 
 // Function given to react-validator
 const required = (value) => {

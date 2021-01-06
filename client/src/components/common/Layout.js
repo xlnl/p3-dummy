@@ -26,12 +26,12 @@ const Layout = (props) => {
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
                 <Link to="/" className="navbar-brand">
-                    PetFlix
+                    <strong>Petflix</strong>
                 </Link>
                 <div className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <Link to={"/home"} className="nav-link">
-                            Home
+                        <Link to="/about" className="navbar-brand">
+                            About
                         </Link>
                     </li>
                     {showAdminBoard && (
@@ -43,8 +43,8 @@ const Layout = (props) => {
                     )}
                     {currentUser && (
                         <li className="nav-item">
-                            <Link to={"/user"} className="nav-link">
-                                User
+                            <Link to={"/home"} className="nav-link">
+                                Home
                             </Link>
                         </li>
                     )}
@@ -58,7 +58,7 @@ const Layout = (props) => {
                         </li>
                         <li className="nav-item">
                             <a href="/login" className="nav-link" onClick={logOut}>
-                                Logout
+                                Log Out
                 </a>
                         </li>
                     </div>
@@ -67,12 +67,6 @@ const Layout = (props) => {
                             <li className="nav-item">
                                 <Link to={"/login"} className="nav-link">
                                     Login
-                                </Link>
-                            </li>
-
-                            <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
-                                    Sign Up
                                 </Link>
                             </li>
                         </div>

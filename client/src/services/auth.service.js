@@ -4,11 +4,14 @@ import { setItem, getItem, removeItem } from '../utilities/localStorage.utilitie
 const API_URL = "http://localhost:8080/api/auth/";
 
 // Function to register User
-export const register = (username, email, password) => {
-    return axios.post(API_URL + "signup", {
+export const signup = (firstName, lastName, username, email, password, city, profilePic) => {    return axios.post(API_URL + "signup", {
+        firstName,
+        lastName,
         username,
         email,
-        password
+        password,
+        city,
+        profilePic
     })
 }
 
